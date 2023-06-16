@@ -1,0 +1,8 @@
+
+fixtures/Distelec.txt
+fixtures/Leame.txt
+fixtures/mini_distelec.txt
+fixtures/mini_padron.txt
+fixtures/PADRON_COMPLETO.txt
+src/db.sqlite3
+*.pyc

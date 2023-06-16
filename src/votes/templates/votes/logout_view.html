@@ -1,0 +1,18 @@
+{% extends 'votes/base.html' %}
+
+{% block title %} Cerrando Sesión {% endblock title %}
+
+{% block body %}
+<div class="card text-center">
+    <div class="card-body">
+        <h5 class="card-title">Cerrando Sesión</h5>
+        <p class="card-text">
+            La sesión ha finalizado con éxito. Para volver al
+            Menú de Inicio presione el botón 'Volver a Inicio':
+        </p>
+
+        <a href="{% url 'voters' %}" class="btn btn-outline-success">Volver a Inicio</a>
+    </div>
+</div>
+
+{% endblock body %}

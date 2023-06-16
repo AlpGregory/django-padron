@@ -1,0 +1,79 @@
+{% extends 'votes/base.html' %}
+
+{% block title %} Lista de votantes {% endblock title %}
+
+    {% block extrali %}
+    {% if perms.votes.add_person %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+        </li>
+    {% endif %}
+    {% endblock extrali %}
+
+
+{% block body %}
+<div class="container my-3">
+
+    <nav class="navbar navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="container-fluid row p-0" style="vertical-align:top">
+
+            <div class="col">
+                <form class="d-flex mb-3 " method="post"> {% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="Numero de cédula" aria-label="Search" name="identification">
+                    <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Search" name="name">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+
+            <div class="col d-flex justify-content-end">
+                {% if perms.votes.add_person %}
+                <a class="align-items-end " href="{% url 'new_voter' %}">
+                    <button class="btn btn-outline-primary" style="btn-padding-y: 0%">Agregar votante</button>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Cédula</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+
+            {% if voters_info_list %}
+                <tbody>
+                    {% for voter in voters_info_list %}
+                        <tr>
+                            <td>
+                                <a href="{{ voter.identification }}/">
+                                    {{ voter.identification }}
+                                </a>
+                            </td>
+                            <td>{{ voter.full_name }}</td>
+                            <td>
+                                {% if perms.votes.delete_person %}
+                                <a href="{% url 'delete_voter' pk=voter.identification %}">
+                                    <button class="btn btn-danger">Eliminar votante</button>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% endif %}
+        </table>
+
+      </div>
+    </nav>
+
+</div>
+
+{% endblock body %}

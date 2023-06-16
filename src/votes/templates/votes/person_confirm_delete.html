@@ -1,0 +1,31 @@
+{% extends 'votes/base.html' %}
+
+{% block title %} Eliminar votante {% endblock title %}
+
+{% block extrali %}
+    {% if perms.votes.add_person %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a>
+        </li>
+    {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
+        </li>
+    {% endif %}
+{% endblock extrali %}
+
+{% block body %}
+<br/><br/><br/>
+<div class="container">
+<p class="h4">¿Desea eliminar a {{ object.full_name }}, Cédula: {{ object.identification }} de la lista de votantes?</p>
+    <br/>
+<form class="d-flex mb-3 " method="post">
+    {% csrf_token %}
+    <button class="btn btn-danger" type="submit">Confirmar</button>
+    <a href="{% url 'voters' %}">
+    <button type="button" class="btn btn-outline-dark" style="margin-left: 25px">Cancelar</button>
+</a>
+</form>
+
+</div>
+{% endblock body %}
